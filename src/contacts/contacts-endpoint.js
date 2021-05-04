@@ -46,7 +46,6 @@ module.exports = function makeContactsEndpointHandler ({ contactList }) {
   async function postContact (httpRequest) {
 
     let contactInfo = httpRequest.body
-    console.log("called the postContact method", contactInfo);
     
     if (!contactInfo) {
       return makeHttpError({

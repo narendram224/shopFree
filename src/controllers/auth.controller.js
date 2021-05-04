@@ -1,7 +1,17 @@
 const handleContactsRequest = require('../contacts');
 const { adaptRequest } = require('../helpers/adapt-request');
+const Joi = require('joi');
 
 module.exports.authController =(req,res)=>{
+
+  const schema = Joi.object({
+    a: Joi.string()
+});
+
+const { error, value } = schema.validate({ a: 'a string' });
+
+console.log("The string",error,value);
+
     const httpRequest = adaptRequest(req)
     handleContactsRequest(httpRequest,"shubh")
     

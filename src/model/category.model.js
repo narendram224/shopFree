@@ -10,7 +10,7 @@ let Categories = new Schema({
 });
 
 const categorySchema = new Schema({
-    name:{type:String,unique:true,lowcase:true},
+    name:{type:String,unique:true,lowcase:true,require:[true,"Category is required"]},
     created:{type:Date,default:Date.now}
 });
 

@@ -3,8 +3,26 @@ const Joi = require('joi');
 
 const schemas = {
   user: Joi.object().keys({
-    username: Joi.string().alphanum().min(3).max(30).required(),
-    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    username: Joi.string().alphanum().min(3).max(10).required().messages(
+      {
+        'string.base': `user should be a type of 'text'`,
+        'string.empty': `usrname cannot be an empty field`,
+        'string.min': `username should have a minimum length of {#limit}`,
+        'string.max': `username should have a maximum length of {#limit}`,
+
+        'any.required': `"username" is a required field`
+      }
+    ),
+    // .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+    password: Joi.string().min(6).messages(
+      {
+        'string.base': `user should be a type of 'text'`,
+        'string.empty': `{#label} cannot be an an empty field`,
+        'string.min': `{#label} should have a minimum length of {#limit}`,
+        "string.pattern.base":"{{#label}} fails to match the required pattern: {{#regex}}",
+        'any.required': `{{#label}} is a required field`
+      }
+    ),
     email   : Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
     isSeller: Joi.boolean().default(false).required(),
   }),
